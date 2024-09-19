@@ -126,22 +126,23 @@ if TYPE_CHECKING:
 
 
 def _check_coords_dims(shape, coords, dim):
-    sizes = dict(zip(dim, shape, strict=True))
-    for k, v in coords.items():
-        if any(d not in dim for d in v.dims):
-            raise ValueError(
-                f"coordinate {k} has dimensions {v.dims}, but these "
-                "are not a subset of the DataArray "
-                f"dimensions {dim}"
-            )
+    pass  # Disabled for xarray_jax experiment.
+    # sizes = dict(zip(dim, shape, strict=True))
+    # for k, v in coords.items():
+    #     if any(d not in dim for d in v.dims):
+    #         raise ValueError(
+    #             f"coordinate {k} has dimensions {v.dims}, but these "
+    #             "are not a subset of the DataArray "
+    #             f"dimensions {dim}"
+    #         )
 
-        for d, s in v.sizes.items():
-            if s != sizes[d]:
-                raise ValueError(
-                    f"conflicting sizes for dimension {d!r}: "
-                    f"length {sizes[d]} on the data but length {s} on "
-                    f"coordinate {k!r}"
-                )
+    #     for d, s in v.sizes.items():
+    #         if s != sizes[d]:
+    #             raise ValueError(
+    #                 f"conflicting sizes for dimension {d!r}: "
+    #                 f"length {sizes[d]} on the data but length {s} on "
+    #                 f"coordinate {k!r}"
+    #             )
 
 
 def _infer_coords_and_dims(
@@ -182,10 +183,11 @@ def _infer_coords_and_dims(
                     dims[n] = coord.name
     dims_tuple = tuple(dims)
     if len(dims_tuple) != len(shape):
-        raise ValueError(
-            "different number of dimensions on data "
-            f"and dims: {len(shape)} vs {len(dims_tuple)}"
-        )
+        pass  # Disabled for xarray_jax experiment.
+        # raise ValueError(
+        #     "different number of dimensions on data "
+        #     f"and dims: {len(shape)} vs {len(dims_tuple)}"
+        # )
     for d in dims_tuple:
         if not hashable(d):
             raise TypeError(f"Dimension {d} is not hashable")

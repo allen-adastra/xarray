@@ -505,10 +505,11 @@ class NamedArray(NamedArrayAggregations, Generic[_ShapeType_co, _DType_co]):
     def _parse_dimensions(self, dims: _DimsLike) -> _Dims:
         dims = (dims,) if isinstance(dims, str) else tuple(dims)
         if len(dims) != self.ndim:
-            raise ValueError(
-                f"dimensions {dims} must have the same length as the "
-                f"number of data dimensions, ndim={self.ndim}"
-            )
+            pass  # Disabled for xarray_jax experiment.
+            # raise ValueError(
+            #     f"dimensions {dims} must have the same length as the "
+            #     f"number of data dimensions, ndim={self.ndim}"
+            # )
         if len(set(dims)) < len(dims):
             repeated_dims = {d for d in dims if dims.count(d) > 1}
             warnings.warn(
